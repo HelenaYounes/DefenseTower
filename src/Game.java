@@ -17,7 +17,7 @@ public class Game extends JPanel {
 		try {
 			this.background = ImageIO.read(new File("background.png"));
 			BufferedImage towerImage = ImageIO.read(new File("singetower.jpg"));
-			this.tower = new MovingTowerDefenseObject(50,0,towerImage, 200, 200);
+			this.tower = new MovingTowerDefenseObject(50,0,towerImage, 20, 20);
 
 
 		} catch (IOException e) {
@@ -32,6 +32,13 @@ public class Game extends JPanel {
 				null
 		);
 		this.tower.drawTheImage(g);
-		
+		repaint();
+		try{
+			Thread.sleep(100);
+		}
+		catch(InterruptedException e){
+			e.printStackTrace();
+			
+		}
 	}
 }
