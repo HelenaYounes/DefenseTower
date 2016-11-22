@@ -44,7 +44,7 @@ public class TowerDefense extends JFrame {
 		// }
 		//
 		// You can change the size of the Frame if you want
-		this.setSize(800, 600);
+		this.setSize(800, 800);
 
 		// Do Not Make Any Changes Below This Line
 		// if (myCanvas != null){
