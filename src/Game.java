@@ -9,9 +9,11 @@ import java.io.IOException;
 
 public class Game extends JPanel {
 	private BufferedImage background;
+	private TowerDefenseObject tower;
 	
 	public Game(){
 		super();
+		this.tower = new TowerDefenseObject();
 		try {
 			this.background = ImageIO.read(new File("background.png"));
 		} catch (IOException e) {
@@ -22,13 +24,10 @@ public class Game extends JPanel {
 	
 	public void paint(Graphics g){
 		g.drawImage(background, 
-				0, 0, 950 / 2, 612 / 2,
-				0, 0 , 950, 612,
+				0, 0, 580, 500,
 				null
 		);
-		g.drawRect(20, 20,10,10);
-		g.setColor(Color.RED);
-		g.fillRect(20, 20, 10, 10);
+		this.tower.drawTheImage(g);
 		
 	}
 }
