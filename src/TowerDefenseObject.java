@@ -9,8 +9,8 @@ public class TowerDefenseObject {
 	private BufferedImage image;
 	private int height;
 	private int width;
-	private int x;
-	private int y;
+	protected int x;
+	protected int y;
 	
 	public TowerDefenseObject() {
 		this.height = 80;

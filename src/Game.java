@@ -12,10 +12,14 @@ public class Game extends JPanel {
 	private TowerDefenseObject tower;
 	
 	public Game(){
-		super();
-		this.tower = new TowerDefenseObject();
+		super();		
+		
 		try {
 			this.background = ImageIO.read(new File("background.png"));
+			BufferedImage towerImage = ImageIO.read(new File("singetower.jpg"));
+			this.tower = new MovingTowerDefenseObject(50,0,towerImage, 200, 200);
+
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
