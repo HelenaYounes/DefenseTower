@@ -21,7 +21,10 @@ public class TowerDefense extends JFrame {
 
 	public TowerDefense() {
 		super("TowerDefense");
-		// MyCanvas myCanvas = null;
+		Game game = new Game();
+		this.add(game);
+		
+//		MyCanvas myCanvas = null;
 		// int numRows = 0;
 		// int numCols = 0;
 
