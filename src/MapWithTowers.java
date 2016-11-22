@@ -21,12 +21,12 @@ public class MapWithTowers extends JFrame {
 
 			//Use this to test your first constructor that does NOT give an image width or height;
 			//Assumes that x and y are first and at 100
-			//Tower t1 = new Tower(100, 100, towerImage, ??);
-			//t1.drawTheImage(g);
+			Tower t1 = new Tower(100, 100, towerImage);
+			t1.drawTheImage(g);
 			
 			//Use this to test your second constructor that does give an image width and height
-			//Tower t2 = new Tower(300, 300, towerImage, ??);
-			//t2.drawTheImage(g);
+			Tower t2 = new Tower(300, 300, towerImage, 55, 70);
+			t2.drawTheImage(g);
 			
 			
 			
