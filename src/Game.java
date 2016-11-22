@@ -13,7 +13,7 @@ public class Game extends JPanel {
 	public Game(){
 		super();
 		try {
-			this.background = ImageIO.read(new File("barker_nathan.jpg"));
+			this.background = ImageIO.read(new File("background.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -21,7 +21,11 @@ public class Game extends JPanel {
 	}
 	
 	public void paint(Graphics g){
-		g.drawImage(background, 118, 128, null);
+		g.drawImage(background, 
+				0, 0, 950 / 2, 612 / 2,
+				0, 0 , 950, 612,
+				null
+		);
 		g.drawRect(20, 20,10,10);
 		g.setColor(Color.RED);
 		g.fillRect(20, 20, 10, 10);
