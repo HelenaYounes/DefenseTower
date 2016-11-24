@@ -6,18 +6,18 @@ import javax.imageio.ImageIO;
 
 
 public class TowerDefenseObject {
-	private BufferedImage image;
-	private int height;
-	private int width;
-	protected int x;
+	protected BufferedImage image;
+	protected int height;
+	protected int width;
+	public int x;
 	protected int y;
-	
+
 	public TowerDefenseObject() {
-		this.height = 80;
-		this.width = 80;
-		this.x = 0;
-		this.y = 200;
-		
+		this.height = 20;
+		this.width = 20;
+		this.x = 500;
+		this.y = 500;
+
 		try {
 			this.image = ImageIO.read(new File("singetower.jpg"));
 		} catch (IOException e) {
@@ -25,25 +25,28 @@ public class TowerDefenseObject {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public TowerDefenseObject(int x, int y, BufferedImage image){
 		this.x = x;
-		this.y = y; 
+		this.y = y;
 		this.image = image;
-		this.width = image.getWidth();
-		this.height = image.getHeight();
+		this.width = image.getWidth()/8;
+		this.height = image.getHeight()/8;
 	}
-	
+
 	public TowerDefenseObject(int x, int y, BufferedImage image, int width, int height ){
 		this.x = x;
 		this.y = y;
-		this.image = image; 
-		this.width = width; 
+		this.image = image;
+		this.width = width;
 		this.height = height;
 	}
-	
+
 	public void drawTheImage(Graphics g) {
 		g.drawImage(this.image, this.x, this.y, this.width, this.height, null);
+	}
+
+	public void runLogic() {
 	}
 
 	public BufferedImage getImage() {
