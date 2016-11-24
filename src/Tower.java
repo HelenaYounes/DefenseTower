@@ -3,30 +3,48 @@ import java.awt.image.BufferedImage;
 
 
 public class Tower extends TowerDefenseObject {
-	private int radius;
-	private int speed;
-	private int coolDown;
-	private int coolDownCounter;
-
+	protected int radius;
+	protected int speed;
+	protected int coolDown;
+	protected int coolDownCounter;
+	protected Projectile projectile;
 	public Tower(int x, int y, BufferedImage image) {
 		super(x, y, image);
-		this.coolDownCounter = 0;
+		this.radius = 10;
+		this.speed = 5;
+		this.coolDownCounter = 5;
 	}
 
 	public Tower(int x, int y, BufferedImage image, int width, int height) {
 		super(x, y, image, width, height);
-		this.coolDownCounter = 0;
-	}
-	
-	@Override
-	public void drawTheImage(Graphics g){
-		super.drawTheImage(g);
-		if(this.coolDownCounter > 0){
-			this.coolDownCounter--;
-		}	
-		
+		this.radius = 5;
+		this.speed = 5;
+		this.coolDownCounter = 3;
 	}
 
+	@Override
+	public void drawTheImage(Graphics g) {
+		super.drawTheImage(g);
+	}
+
+	public void runLogic() {
+		if(this.coolDownCounter > 0){
+			this.coolDownCounter--;
+		}
+	}
+
+	public Projectile fireAtEnemy(Enemy e){
+		if(coolDownCounter>0){
+			this.projectile = null;
+		}
+		else{
+			this.coolDownCounter = 10;
+			Projectile projectile = new Projectile ();
+			projectile.fireAtEnemy(e);
+		}
+
+		return this.projectile;
+	}
 	public int getRadius() {
 		return radius;
 	}
@@ -43,12 +61,12 @@ public class Tower extends TowerDefenseObject {
 		this.speed = speed;
 	}
 
+	public void setCoolDown(int coolDown) {
+		this.coolDown = coolDown;
+	}
 	public int getCoolDown() {
 		return coolDown;
 	}
 
-	public void setCoolDown(int coolDown) {
-		this.coolDown = coolDown;
-	}
 
 }

@@ -10,20 +10,36 @@ import java.util.Scanner;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 /**
- * 
- * @author
- * 
+ *
+ * @authorHelena
+ *
  */
+// Where and How to put the KeyListener for start pause on press space event??
+
 // @SuppressWarnings({ "serial", "unused" })
 public class TowerDefense extends JFrame {
 
+
 	public TowerDefense() {
+
 		super("TowerDefense");
 		Game game = new Game();
+		// this.setLocationRelativeTo(null);
+		// towerDefense.addKeyListener(this);
+	  // towerDefense.setFocusable(true);
+		// add(this);
+	 	setVisible(true);
+		// panel.requestFocusInWindow();
 		this.add(game);
-		
+
+		//
+
+
+
+
 //		MyCanvas myCanvas = null;
 		// int numRows = 0;
 		// int numCols = 0;
@@ -55,10 +71,12 @@ public class TowerDefense extends JFrame {
 		// }
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);
+
 	}
 
 	public static void main(String[] args) {
 		new TowerDefense();
+
 	}
 
 }
