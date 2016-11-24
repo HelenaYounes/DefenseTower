@@ -1,4 +1,6 @@
 import java.awt.Graphics;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 
 
@@ -26,6 +28,7 @@ public class Tower extends TowerDefenseObject {
 	public void drawTheImage(Graphics g) {
 		super.drawTheImage(g);
 	}
+	
 
 	public void runLogic() {
 		if(this.coolDownCounter > 0){
@@ -67,6 +70,13 @@ public class Tower extends TowerDefenseObject {
 	public int getCoolDown() {
 		return coolDown;
 	}
+
+	public void mouseClicked(MouseEvent e) {
+//		if( e.getPoint ==  )
+		System.out.println(e);
+		
+	}
+
 
 
 }

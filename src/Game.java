@@ -1,19 +1,19 @@
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
+
 import java.awt.*;
 import java.awt.event.*;
-
-
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
 
 
-public class Game extends JPanel implements KeyListener{
+public class Game extends JPanel implements KeyListener, MouseListener{
 
 	protected BufferedImage background;
 	protected TowerDefenseObject tower;
@@ -27,6 +27,7 @@ public class Game extends JPanel implements KeyListener{
 	public Game(){
 		super();
 		addKeyListener(this);
+		addMouseListener(this);
 		setFocusable(true);
 		setFocusTraversalKeysEnabled(false);
 
@@ -64,6 +65,23 @@ public class Game extends JPanel implements KeyListener{
 			e.printStackTrace();
 		}
 	}
+	public void mouseClicked(MouseEvent e) {
+//		if( e.getPoint ==  )
+		int x = e.getX();
+		int y = e.getY();
+		boolean contains = tower.contain(x, y);
+		System.out.println(contains + " << ");
+		
+	}
+	
+	public void mouseEntered(MouseEvent arg0) { }
+
+	public void mouseExited(MouseEvent arg0) { }
+
+	public void mousePressed(MouseEvent arg0) { }
+
+	public void mouseReleased(MouseEvent arg0) 	{ }
+
 
 	public void keyReleased(KeyEvent e) {}
 	public void keyTyped(KeyEvent e) {}
