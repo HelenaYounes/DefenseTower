@@ -11,7 +11,9 @@ public class Tower extends TowerDefenseObject {
 	protected int coolDownCounter;
 	protected Projectile projectile;
 	protected boolean canFire;
+
 	public Tower(int x, int y, BufferedImage image) {
+
 		super(x, y, image);
 		this.radius = 10;
 		this.speed = 5;
@@ -43,7 +45,13 @@ public class Tower extends TowerDefenseObject {
 		}
 		else{
 			this.coolDownCounter = 10;
-			this.projectile = new Projectile ();
+			int x = this.x;
+			int y = this.y;
+			BufferedImage projectileImage = this.projectileImage;
+			double vy = ;
+			double vx; = 
+			int damage = ;
+			this.projectile = new Projectile (this.tower.x, this.tower.Y, this.projectileImage, this.projectile.velocityX, , dmg );
 			this.projectile.fireAtEnemy(e);
 		}
 

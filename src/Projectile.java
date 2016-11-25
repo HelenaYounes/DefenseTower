@@ -2,43 +2,29 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 public class Projectile extends MovingTowerDefenseObject {
-
   protected int damage;
   protected double velocity;
-  protected double velocityX;
-  protected double velocityY;
 
-  public Projectile(){
-    super();
-    this.damage = 1;
-  }
-  public Projectile(int x, int y, BufferedImage image, double velocityX, double velocityY, int damage){
-    super(x, y, image, velocityX, velocityY);
+  public Projectile(int x, int y, BufferedImage image, int damage, double velocity){
+    super(x, y, image, 0.0, 0.0);
     this.damage = damage;
     this.velocity = velocity;
-    this.velocityX = velocityX;
-    this.velocityY = velocityY;
+
   }
-
-
-    public Projectile(int x, int y, BufferedImage image ,int width, int height, double velocityX, double velocityY, int damage){
-      super(x, y, image, width, height,  velocityX, velocityY);
+    public Projectile(int x, int y, BufferedImage image, double velocity, int damage) {
+      super(x, y, image, 0.0, 0.0);
+      this.velocity = velocity;
       this.damage = damage;
-      this.velocityX = velocityY;
-      this.velocityY = velocityY;
-
+    }
+    public Projectile(int x, int y, BufferedImage image, int width, int height, double velocity, int damage) {
+      super(x, y, image, width, height, 0.0, 0.0);
+      this.velocity = velocity;
+      this.damage = damage;
     }
 
     public Projectile(Projectile p){
-      super();
-      this.x = p.x;
-      this.y = p.y;
-      this.velocity = p.velocity;
-      this.velocityX = p.velocityX;
-      this.velocityY = p.velocityX;
-      this.image = p.image;
-      this. width = p.width;
-      this.height = p.height;
+      super(p.x, p.y, p.image, p.width, p.height, p.velocityX, p.velocityY );
+      this.velocity = p.velocity; 
       this.damage = p.damage;
     }
 
@@ -50,7 +36,7 @@ public class Projectile extends MovingTowerDefenseObject {
       this.y += this.velocityY;
     }
 
-  
+
     public void drawTheImage(Graphics g) {
       super.drawTheImage(g);
     }
