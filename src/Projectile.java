@@ -4,9 +4,9 @@ import java.awt.image.BufferedImage;
 public class Projectile extends MovingTowerDefenseObject {
 
   protected int damage;
-  protected double velocityProjectile;
-  protected double velocityProjectileX;
-  protected double velocityProjectileY;
+  protected double velocity;
+  protected double velocityX;
+  protected double velocityY;
 
   public Projectile(){
     super();
@@ -15,17 +15,17 @@ public class Projectile extends MovingTowerDefenseObject {
   public Projectile(int x, int y, BufferedImage image, double velocityX, double velocityY, int damage){
     super(x, y, image, velocityX, velocityY);
     this.damage = damage;
-    this.velocityProjectile = velocityProjectile;
-    this.velocityProjectileX = velocityProjectileX;
-    this.velocityProjectileY = velocityProjectileY;
+    this.velocity = velocity;
+    this.velocityX = velocityX;
+    this.velocityY = velocityY;
   }
 
 
     public Projectile(int x, int y, BufferedImage image ,int width, int height, double velocityX, double velocityY, int damage){
       super(x, y, image, width, height,  velocityX, velocityY);
       this.damage = damage;
-      this.velocityProjectileX = velocityProjectileY;
-      this.velocityProjectileY = velocityProjectileY;
+      this.velocityX = velocityY;
+      this.velocityY = velocityY;
 
     }
 
@@ -33,9 +33,9 @@ public class Projectile extends MovingTowerDefenseObject {
       super();
       this.x = p.x;
       this.y = p.y;
-      this.velocityProjectile = p.velocityProjectile;
-      this.velocityProjectileX = p.velocityProjectileX;
-      this.velocityProjectileY = p.velocityProjectileX;
+      this.velocity = p.velocity;
+      this.velocityX = p.velocityX;
+      this.velocityY = p.velocityX;
       this.image = p.image;
       this. width = p.width;
       this.height = p.height;
@@ -43,10 +43,11 @@ public class Projectile extends MovingTowerDefenseObject {
     }
 
     public void fireAtEnemy(Enemy e){
-      this.x -= e.x;
-      this.y -= e.y;
-      this.velocityProjectileX = this.x;
-      this.velocityProjectileY = this.y;
+      double angle = Math.atan2(x, y);
+      this.velocityX = Math.cos(angle) * this.velocity;
+      this.velocityY = Math.sin(angle) * this.velocity;
+      this.x += this.velocityX;
+      this.y += this.velocityY;
     }
 
     public void setDamage(int damage){
@@ -56,20 +57,20 @@ public class Projectile extends MovingTowerDefenseObject {
     public int getDamage(){
       return damage;
     }
-     public void setVelocityProjectileX (int velocityProjectileX){
-       this.velocityProjectileX = velocityProjectileX;
+     public void setVelocityProjectileX (int velocityX){
+       this.velocityX = velocityX;
 
      }
-     public void setVelocityProjectileY (int velocityProjectileY){
-       this.velocityProjectileY = velocityProjectileY;
+     public void setVelocityProjectileY (int velocityY){
+       this.velocityY = velocityY;
 
      }
      public double getVelocityProjectileX(){
-       return velocityProjectileX;
+       return velocityX;
 
      }
      public double getVelocityProjectileY(){
-       return velocityProjectileY;
+       return velocityY;
 
      }
 

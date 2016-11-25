@@ -19,6 +19,10 @@ public class Game extends JPanel implements KeyListener, MouseListener{
 	protected TowerDefenseObject tower;
 	protected TowerDefenseObject tower2;
 	protected Enemy enemy;
+	protected Enemy[] enemies;
+	protected Tower[] towers;
+
+
 	public boolean isPaused;
 	public boolean isPlaying;
 	public double temp;
@@ -36,32 +40,66 @@ public class Game extends JPanel implements KeyListener, MouseListener{
 			this.background = ImageIO.read(new File("background.png"));
 			BufferedImage towerImage = ImageIO.read(new File("enemy.jpg"));
 			BufferedImage enemyImage = ImageIO.read(new File("ball.jpeg"));
-			this.tower = new MovingTowerDefenseObject(80,150,towerImage, 0, 0);
-			this.enemy = new Enemy(550, 240, enemyImage, 50, 0, 100);
-			this.tower2 = new MovingTowerDefenseObject(80, 250, towerImage, 0, 0);
+			this.initializeEnemies(5, enemyImage);
+			this.initializeTowers(3, towerImage);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
+	public void initializeEnemies(int num, BufferedImage img) {
+		this.enemies = new Enemy[num];
+		for (int i = 0; i < num; i++) {
+			this.enemies[i] = new Enemy(540,  (i + 1) * 100, img, 100.0, 0.0, 50);
+		}
+	}
+
+	public void initializeTowers(int num, BufferedImage img) {
+		this.towers = new Tower[num];
+		for (int i = 0; i < num; i++) {
+			this.towers[i] = new Tower(100, 150 * i ,img, 50, 40);
+		}
+	}
+
+	public void runLogic() {
+		for (int i = 0; i < this.enemies.length; i++) {
+			this.enemies[i].runLogic();
+		}
+		for (int j = 0; j < this.towers.length; j++) {
+			this.towers[j].runLogic();
+		}
+	}
+
+	public void drawComponents(Graphics g) {
+		for (int i = 0; i < this.enemies.length; i++) {
+			this.enemies[i].drawTheImage(g);
+		}
+		for (int j = 0; j < this.towers.length; j++) {
+			this.towers[j].drawTheImage(g);
+		}
+	}
+
+
 	public void paint(Graphics g){
 
 		g.drawImage(this.background, 0, 0, 580, 500, null );
 
 		try{
+
+			// GAME LOGIC
 			if (this.isPlaying) {
-				this.enemy.runLogic();
-				this.tower.runLogic();
-				this.tower2.runLogic();
+				this.runLogic();
 			}
-			this.enemy.drawTheImage(g);
-			this.tower.drawTheImage(g);
-			this.tower2.drawTheImage(g);
+
+			// RENDER COMPONENTS
+			this.drawComponents(g);
+
+			// WAIT 500ms to ANIMATE
 			Thread.sleep(500);
 			repaint();
+
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -71,9 +109,9 @@ public class Game extends JPanel implements KeyListener, MouseListener{
 		int y = e.getY();
 		boolean contains = tower.contain(x, y);
 		System.out.println(contains + " << ");
-		
+
 	}
-	
+
 	public void mouseEntered(MouseEvent arg0) { }
 
 	public void mouseExited(MouseEvent arg0) { }

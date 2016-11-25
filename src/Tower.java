@@ -28,7 +28,7 @@ public class Tower extends TowerDefenseObject {
 	public void drawTheImage(Graphics g) {
 		super.drawTheImage(g);
 	}
-	
+
 
 	public void runLogic() {
 		if(this.coolDownCounter > 0){
@@ -37,13 +37,13 @@ public class Tower extends TowerDefenseObject {
 	}
 
 	public Projectile fireAtEnemy(Enemy e){
-		if(coolDownCounter>0){
+		if (coolDownCounter > 0) {
 			this.projectile = null;
 		}
 		else{
 			this.coolDownCounter = 10;
-			Projectile projectile = new Projectile ();
-			projectile.fireAtEnemy(e);
+			this.projectile = new Projectile ();
+			this.projectile.fireAtEnemy(e);
 		}
 
 		return this.projectile;
@@ -74,7 +74,7 @@ public class Tower extends TowerDefenseObject {
 	public void mouseClicked(MouseEvent e) {
 //		if( e.getPoint ==  )
 		System.out.println(e);
-		
+
 	}
 
 
