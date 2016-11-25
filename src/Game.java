@@ -57,7 +57,7 @@ public class Game extends JPanel implements KeyListener, MouseListener, MouseMot
 	public void initializeEnemies(int num, BufferedImage img) {
 		this.enemies = new Enemy[num];
 		for (int i = 0; i < num; i++) {
-			this.enemies[i] = new Enemy(500 + 20*i, 300, img, 100.0, 0.0, 50);
+			this.enemies[i] = new Enemy(500 + 20*i, 300, img, 50.0, 0.0, 50);
 		}
 	}
 
@@ -68,7 +68,7 @@ public class Game extends JPanel implements KeyListener, MouseListener, MouseMot
 			this.towers[i] = new Tower(100, 150 * i ,imgTower, 50, 40);
 			Tower tower = this.towers[i];
 			for(int j = 0; j < projectiles.length; j++){
-				this.projectiles[j] = new Projectile(tower.x,tower.y, imgProjectile, 50.0, 40.0, 10);
+				this.projectiles[j] = new Projectile(tower.x,tower.y, imgProjectile, 20.0, 40.0, 10);
 			}
 		}
 	}
@@ -114,7 +114,7 @@ public class Game extends JPanel implements KeyListener, MouseListener, MouseMot
 			this.drawComponents(g);
 
 			// WAIT 500ms to ANIMATE
-			Thread.sleep(500);
+			Thread.sleep(100);
 			repaint();
 
 		} catch (InterruptedException e) {
@@ -160,7 +160,7 @@ public class Game extends JPanel implements KeyListener, MouseListener, MouseMot
 			System.out.println("World");
 		}
 		System.out.println("moved");
-		
+
 	 }
 
 	public void keyReleased(KeyEvent e) {}
