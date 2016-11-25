@@ -13,7 +13,7 @@ import java.io.File;
 import java.io.IOException;
 
 
-public class Game extends JPanel implements KeyListener, MouseListener{
+public class Game extends JPanel implements KeyListener, MouseListener, MouseMotionListener{
 
 	protected BufferedImage background;
 	protected TowerDefenseObject tower;
@@ -26,7 +26,9 @@ public class Game extends JPanel implements KeyListener, MouseListener{
 
 	public boolean isPaused;
 	public boolean isPlaying;
+	//
 	public TowerDefenseObject towerSelected;
+	//
 	public double temp;
 	public int key;
 
@@ -34,6 +36,7 @@ public class Game extends JPanel implements KeyListener, MouseListener{
 		super();
 		addKeyListener(this);
 		addMouseListener(this);
+		addMouseMotionListener(this);
 		setFocusable(true);
 		setFocusTraversalKeysEnabled(false);
 
@@ -126,31 +129,39 @@ public class Game extends JPanel implements KeyListener, MouseListener{
 
 	public void mouseExited(MouseEvent arg0) { }
 
-	public void mousePressed(MouseEvent arg0) {
-
+	public void mousePressed(MouseEvent e) {
+		int x = e.getX();
+		int y = e.getY();
+		//check towers if cliked
 		for ( int i = 0; i < this.towers.length; i++){
-
-			int x = e.getX();
-			int y = e.getY();
 			boolean contains = this.towers[i].contain(x, y);
-			this.towerSelected = this.towers[i];
+			//
+			if (contains == true){
+				this.towerSelected = this.towers[i];
+				System.out.println("Hello");
+			}
 		}
+
 	}
 
 	public void mouseReleased(MouseEvent e) 	{
-	
 		this.towerSelected = null;
-
+		System.out.println("released");
 	 }
 
  	public void mouseMoved(MouseEvent e){
-	  for (int i = 0; i < this.towers.length; i++){
-		  if(this.towers[i] == this.towerSelected){
-			 this.towers[i].x = e.getX();
-			 this.towers[i].y = e.getY();
-	 		}
-		}
+
  	}
+
+	public void mouseDragged(MouseEvent e) 	{
+		if ( this.towerSelected != null) {
+			this.towerSelected.x = e.getX();
+			this.towerSelected.y = e.getY();
+			System.out.println("World");
+		}
+		System.out.println("moved");
+		
+	 }
 
 	public void keyReleased(KeyEvent e) {}
 	public void keyTyped(KeyEvent e) {}
