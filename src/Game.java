@@ -114,7 +114,9 @@ public class Game extends JPanel implements KeyListener, MouseListener, MouseMot
 			this.drawComponents(g);
 
 			// WAIT 500ms to ANIMATE
-			Thread.sleep(500);
+			if ( this.towerSelected == null) {
+				Thread.sleep(500);
+			}
 			repaint();
 
 		} catch (InterruptedException e) {
@@ -137,6 +139,7 @@ public class Game extends JPanel implements KeyListener, MouseListener, MouseMot
 			boolean contains = this.towers[i].contain(x, y);
 			//
 			if (contains == true){
+				this.isPlaying = false;
 				this.towerSelected = this.towers[i];
 				System.out.println("Hello");
 			}
@@ -145,22 +148,25 @@ public class Game extends JPanel implements KeyListener, MouseListener, MouseMot
 	}
 
 	public void mouseReleased(MouseEvent e) 	{
-		this.towerSelected = null;
-		System.out.println("released");
+		if (this.towerSelected != null) {
+			this.towerSelected = null;
+			this.isPlaying = true;
+			System.out.println("released");
+		}
 	 }
 
  	public void mouseMoved(MouseEvent e){
-
  	}
 
 	public void mouseDragged(MouseEvent e) 	{
 		if ( this.towerSelected != null) {
 			this.towerSelected.x = e.getX();
 			this.towerSelected.y = e.getY();
-			System.out.println("World");
+			repaint();
+			System.out.println("dragging");
 		}
 		System.out.println("moved");
-		
+
 	 }
 
 	public void keyReleased(KeyEvent e) {}
