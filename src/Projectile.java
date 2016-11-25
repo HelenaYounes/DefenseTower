@@ -50,6 +50,17 @@ public class Projectile extends MovingTowerDefenseObject {
       this.y += this.velocityY;
     }
 
+  
+    public void drawTheImage(Graphics g) {
+      super.drawTheImage(g);
+    }
+
+    public void runLogic(){
+      this.x = (int) (this.x + this.velocityY);
+      this.y = (int) (this.y + this.velocity);
+
+    }
+
     public void setDamage(int damage){
       this.damage = damage;
     }

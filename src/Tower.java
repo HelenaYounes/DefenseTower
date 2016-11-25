@@ -10,6 +10,7 @@ public class Tower extends TowerDefenseObject {
 	protected int coolDown;
 	protected int coolDownCounter;
 	protected Projectile projectile;
+	protected boolean canFire;
 	public Tower(int x, int y, BufferedImage image) {
 		super(x, y, image);
 		this.radius = 10;
@@ -37,7 +38,7 @@ public class Tower extends TowerDefenseObject {
 	}
 
 	public Projectile fireAtEnemy(Enemy e){
-		if (coolDownCounter > 0) {
+		if (this.canFire) {
 			this.projectile = null;
 		}
 		else{
@@ -48,6 +49,15 @@ public class Tower extends TowerDefenseObject {
 
 		return this.projectile;
 	}
+
+	public boolean canFire(){
+		this.canFire = false;
+		if(this.coolDownCounter<1){
+			this.canFire = true;
+		}
+		return canFire;
+		}
+
 	public int getRadius() {
 		return radius;
 	}
