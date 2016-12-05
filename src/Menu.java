@@ -11,10 +11,11 @@ public class Menu extends JPanel {
 
 	public int score;
 	public JLabel scoreBoard;
-	
-	public Menu(){
-		super();
+	public Game game;
 
+	public Menu(Game game){
+		super();
+		this.game = game;
 	    BoxLayout layout = new BoxLayout(this, BoxLayout.Y_AXIS);
 	    this.setVisible(true);
 	    this.setLayout(layout);
@@ -36,7 +37,11 @@ public class Menu extends JPanel {
 		pause.requestFocusInWindow();
 		repaint();
 	}
-	
+
+	// public ... {
+	// 	this.game.stop();
+	// }
+
 	public void paint(Graphics g){
 	}
 }
