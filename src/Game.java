@@ -17,6 +17,7 @@ import java.io.IOException;
 public class Game extends JPanel implements KeyListener, MouseListener, MouseMotionListener{
 
 	protected BufferedImage background;
+	protected BufferedImage towerImage;
 	protected TowerDefenseObject tower;
 	protected TowerDefenseObject tower2;
 	protected ArrayList<Enemy> enemies;
@@ -24,13 +25,15 @@ public class Game extends JPanel implements KeyListener, MouseListener, MouseMot
 	protected ArrayList<Tower> towers;
 	protected ArrayList<Projectile> projectiles;
 	public int score;
+	public int money;
+	public int lives;
 
 
 
 	public boolean isPlaying;
 	public int WIDTH;
 	public int HEIGHT;
-	
+
 	//
 	public TowerDefenseObject towerSelected;
 	//
@@ -39,6 +42,10 @@ public class Game extends JPanel implements KeyListener, MouseListener, MouseMot
 
 	public Game(){
 		super();
+		this.isPlaying = false;
+		this.money = 1000;
+		this.money = 1000;
+		this.lives = 100;
 		this.isPlaying = false;
 		this.WIDTH = 580;
 		this.HEIGHT = 500;
@@ -50,7 +57,7 @@ public class Game extends JPanel implements KeyListener, MouseListener, MouseMot
 		setFocusTraversalKeysEnabled(false);
 		try {
 			this.background = ImageIO.read(new File("background.png"));
-			BufferedImage towerImage = ImageIO.read(new File("enemy.jpg"));
+			this.towerImage = ImageIO.read(new File("enemy.jpg"));
 			BufferedImage enemyImage = ImageIO.read(new File("ball.jpeg"));
 			BufferedImage projectileImage = ImageIO.read(new File("projectile.jpg"));
 			this.initializeEnemies(6, enemyImage);
@@ -158,6 +165,14 @@ public class Game extends JPanel implements KeyListener, MouseListener, MouseMot
 		return String.valueOf(this.score);
 	}
 
+	public String getMoney() {
+		return String.valueOf(this.money);
+	}
+
+	public String getLives() {
+		return String.valueOf(this.lives);
+	}
+
 	public void paint(Graphics g){
 
 		g.drawImage(this.background, 0, 0, this.WIDTH, this.HEIGHT, null );
@@ -239,4 +254,20 @@ public class Game extends JPanel implements KeyListener, MouseListener, MouseMot
 	public void stop() {
 		this.isPlaying = false;
 	}
+
+	public void addTower(int cost, int speed, int damage) {
+		if ( this.money > cost ) {
+			this.money -= cost;
+			this.towers.add(new Tower(
+				(int) Math.floor(Math.random() * this.WIDTH),
+				(int) Math.floor(Math.random() * this.HEIGHT),
+				this.towerImage,
+				50,
+				40,
+				speed,
+				damage)
+			);
+		}
+	}
+
 }

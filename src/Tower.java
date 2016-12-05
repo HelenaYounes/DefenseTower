@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 public class Tower extends TowerDefenseObject {
 	protected int radius;
 	protected int speed;
+	protected int damage;
 	protected int coolDown;
 	protected int coolDownCounter;
 	protected Projectile projectile;
@@ -17,12 +18,22 @@ public class Tower extends TowerDefenseObject {
 		this.radius = 10;
 		this.speed = 2;
 		this.coolDownCounter = 10;
+		this.damage = 10;
 	}
 
 	public Tower(int x, int y, BufferedImage image, int width, int height) {
 		super(x, y, image, width, height);
 		this.radius = 5;
 		this.speed = 2;
+		this.coolDownCounter = 10;
+		this.damage = 10;
+	}
+
+	public Tower(int x, int y, BufferedImage image, int width, int height, int speed, int damage) {
+		super(x, y, image, width, height);
+		this.radius = 5;
+		this.speed = speed;
+		this.damage = damage;
 		this.coolDownCounter = 10;
 	}
 
@@ -45,7 +56,6 @@ public class Tower extends TowerDefenseObject {
 			int x = this.x + this.width / 2;
 			int y = this.y + this.height / 2;
 			double velocity = 10.0;
-			int dmg = 10;
 			int size = 10;
 			BufferedImage projectileImage = this.projectileImage;
 			this.projectile = new Projectile(
@@ -55,7 +65,7 @@ public class Tower extends TowerDefenseObject {
 				size,
 				size,
 				velocity,
-				dmg
+				this.damage
 			);
 			this.projectile.fireAtEnemy(e);
 		}
@@ -88,6 +98,12 @@ public class Tower extends TowerDefenseObject {
 	}
 	public int getCoolDown() {
 		return this.coolDown;
+	}
+	public void setDamage(int damage) {
+		this.damage = damage;
+	}
+	public int getDamage() {
+		return this.damage;
 	}
 
 	public void mouseClicked(MouseEvent e) {
