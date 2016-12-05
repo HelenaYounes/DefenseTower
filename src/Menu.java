@@ -36,32 +36,26 @@ public class Menu extends JPanel implements ActionListener{
 		String score = this.game.getScore();
 		this.scoreBoard = new JLabel();
 		this.scoreBoard.setVisible(true);
-
 		add(start);
 		add(pause);
 		add(reset);
-//		this.add(scoreBoard);
-
-		pause.requestFocusInWindow();
-		repaint();
+		this.add(scoreBoard);
 	}
 
 	public void actionPerformed(ActionEvent e){
-		if	(e.getSource() == this.pause){
+		if	(e.getSource() == this.pause) {
 			this.game.stop();
-
+		} else if (e.getSource() == this.start) {
+			this.game.start();
 		}
-
-		else if(e.getSource() == this.start){
-
-				this.game.start();
-		}
-    }
+	}
 
 
 
 	public void paint(Graphics g) {
 		super.paint(g);
+		this.scoreBoard.setText("Score: " + game.getScore());
+		repaint();
 	}
 
 
