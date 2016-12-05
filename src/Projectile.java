@@ -31,8 +31,7 @@ public class Projectile extends MovingTowerDefenseObject {
     public void fireAtEnemy(Enemy e){
       double dx = e.x - this.x;
       double dy = e.y - this.y;
-      double angle = Math.atan2(dx, dy);
-      System.out.println("angle " + angle);
+      double angle = Math.atan2(dy, dx);
       this.velocityX = Math.cos(angle) * this.velocity;
       this.velocityY = Math.sin(angle) * this.velocity;
       this.x += this.velocityX;
@@ -45,9 +44,8 @@ public class Projectile extends MovingTowerDefenseObject {
     }
 
     public void runLogic(){
-      this.x = (int) (this.x + this.velocityY);
-      this.y = (int) (this.y + this.velocity);
-
+      this.x = (int) (this.x + this.velocityX);
+      this.y = (int) (this.y + this.velocityY);
     }
 
     public void setDamage(int damage){
@@ -55,22 +53,22 @@ public class Projectile extends MovingTowerDefenseObject {
     }
 
     public int getDamage(){
-      return damage;
+      return this.damage;
     }
-     public void setVelocityProjectileX (int velocityX){
+     public void setVelocityX (int velocityX){
        this.velocityX = velocityX;
 
      }
-     public void setVelocityProjectileY (int velocityY){
+     public void setVelocityY (int velocityY){
        this.velocityY = velocityY;
 
      }
-     public double getVelocityProjectileX(){
-       return velocityX;
+     public double getVelocityX(){
+       return this.velocityX;
 
      }
-     public double getVelocityProjectileY(){
-       return velocityY;
+     public double getVelocityY(){
+       return this.velocityY;
 
      }
 

@@ -52,8 +52,8 @@ public class Game extends JPanel implements KeyListener, MouseListener, MouseMot
 			BufferedImage towerImage = ImageIO.read(new File("enemy.jpg"));
 			BufferedImage enemyImage = ImageIO.read(new File("ball.jpeg"));
 			BufferedImage projectileImage = ImageIO.read(new File("projectile.jpg"));
-			this.initializeEnemies(10, enemyImage);
-			this.initializeTowers(3, 10, towerImage, projectileImage);
+			this.initializeEnemies(6, enemyImage);
+			this.initializeTowers(3, towerImage, projectileImage);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -65,11 +65,11 @@ public class Game extends JPanel implements KeyListener, MouseListener, MouseMot
 		this.enemies = new ArrayList<Enemy>();
 		this.enemiesInit = new ArrayList<Enemy>();
 		for (int i = 0; i < num; i++) {
-			this.enemiesInit.add(new Enemy(0, 300, img, 50.0, 0.0, 50));
+			this.enemiesInit.add(new Enemy(0, 300, img, 5.0, 0.0, 50));
 		}
 	}
 
-	public void initializeTowers(int num, int fleche, BufferedImage imgTower, BufferedImage imgProjectile) {
+	public void initializeTowers(int num, BufferedImage imgTower, BufferedImage imgProjectile) {
 		this.towers = new ArrayList<Tower>();
 		this.projectiles = new ArrayList<Projectile>();
 
@@ -78,11 +78,16 @@ public class Game extends JPanel implements KeyListener, MouseListener, MouseMot
 		}
 	}
 	public void addWaitingEnemies() {
-		if (enemiesInit.size() > 0) {
-			Enemy enemy = enemiesInit.get(0);
-			this.enemies.add(enemy);
-			enemiesInit.remove(0);
+		if (this.enemiesInit.size() < 1) return;
+		if (this.enemies.size() > 0) {
+			Enemy lastEnemy = this.enemies.get(this.enemies.size() - 1);
+			if (lastEnemy.x < lastEnemy.width) {
+				return;
+			}
 		}
+		Enemy enemy = enemiesInit.get(0);
+		this.enemies.add(enemy);
+		enemiesInit.remove(0);
 	}
 
 	public void runLogic() {
@@ -95,12 +100,12 @@ public class Game extends JPanel implements KeyListener, MouseListener, MouseMot
 		for (int j = 0; j < this.towers.size(); j++) {
 			Tower tower = this.towers.get(j);
 			tower.runLogic();
-			if (tower.canFire()) {
+			if (tower.canFire() && this.enemies.size() > 0) {
 				Projectile p = tower.fireAtEnemy(this.enemies.get(0));
 				this.projectiles.add(p);
 			}
 		}
-			System.out.println("pSize " + this.projectiles.size());
+
 		 for(int k = 0; k < this.projectiles.size(); k++){
 			 Projectile p = this.projectiles.get(k);
 			 p.runLogic();
@@ -124,7 +129,6 @@ public class Game extends JPanel implements KeyListener, MouseListener, MouseMot
 		}
 		for (int l = 0; l < this.enemies.size(); l++) {
 			Enemy e = this.enemies.get(l);
-		 //  System.out.println("e: " + e.x + " " + e.y);
 			if (e.contain(projectile.x, projectile.y)) {
 				e.hit(projectile.getDamage());
 				if ( e.getHealth() <= 0 ) {
@@ -165,7 +169,7 @@ public class Game extends JPanel implements KeyListener, MouseListener, MouseMot
 
 			// WAIT 500ms to ANIMATE
 			if ( this.towerSelected == null) {
-				Thread.sleep(500);
+				Thread.sleep(100);
 			}
 			repaint();
 

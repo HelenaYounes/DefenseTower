@@ -13,18 +13,17 @@ public class Tower extends TowerDefenseObject {
 	protected boolean canFire;
 
 	public Tower(int x, int y, BufferedImage image) {
-
 		super(x, y, image);
 		this.radius = 10;
-		this.speed = 5;
-		this.coolDownCounter = 5;
+		this.speed = 2;
+		this.coolDownCounter = 10;
 	}
 
 	public Tower(int x, int y, BufferedImage image, int width, int height) {
 		super(x, y, image, width, height);
 		this.radius = 5;
-		this.speed = 5;
-		this.coolDownCounter = 5;
+		this.speed = 2;
+		this.coolDownCounter = 10;
 	}
 
 	@Override
@@ -43,9 +42,9 @@ public class Tower extends TowerDefenseObject {
 			this.projectile = null;
 		} else {
 			this.coolDownCounter = 10;
-			int x = this.x;
-			int y = this.y;
-			double velocity = 50.0;
+			int x = this.x + this.width / 2;
+			int y = this.y + this.height / 2;
+			double velocity = 10.0;
 			int dmg = 10;
 			int size = 10;
 			BufferedImage projectileImage = this.projectileImage;
