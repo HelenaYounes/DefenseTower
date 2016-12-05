@@ -11,7 +11,6 @@ import java.awt.event.ActionListener;
 
 public class Menu extends JPanel implements ActionListener{
 
-	public int score;
 	public JLabel scoreBoard;
 	public JButton start;
 	public JButton pause;
@@ -34,8 +33,9 @@ public class Menu extends JPanel implements ActionListener{
 		this.reset.setVisible(true);
 		this.start.setVisible(true);
 		this.pause.setVisible(true);
-//		this.scoreBoard = new JLabel("HI");
-//		this.scoreBoard.setVisible(true);
+		String score = this.game.getScore();
+		this.scoreBoard = new JLabel();
+		this.scoreBoard.setVisible(true);
 
 		add(start);
 		add(pause);

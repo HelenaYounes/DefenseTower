@@ -23,12 +23,14 @@ public class Game extends JPanel implements KeyListener, MouseListener, MouseMot
 	protected ArrayList<Enemy> enemiesInit;
 	protected ArrayList<Tower> towers;
 	protected ArrayList<Projectile> projectiles;
+	public int score;
 
 
-	public boolean isPaused;
+
 	public boolean isPlaying;
 	public int WIDTH;
 	public int HEIGHT;
+	
 	//
 	public TowerDefenseObject towerSelected;
 	//
@@ -37,6 +39,7 @@ public class Game extends JPanel implements KeyListener, MouseListener, MouseMot
 
 	public Game(){
 		super();
+		this.isPlaying = false;
 		this.WIDTH = 580;
 		this.HEIGHT = 500;
 //		addActionListener(this);
@@ -46,8 +49,6 @@ public class Game extends JPanel implements KeyListener, MouseListener, MouseMot
 		setFocusable(true);
 		setFocusTraversalKeysEnabled(false);
 		try {
-
-			this.isPlaying = true;
 			this.background = ImageIO.read(new File("background.png"));
 			BufferedImage towerImage = ImageIO.read(new File("enemy.jpg"));
 			BufferedImage enemyImage = ImageIO.read(new File("ball.jpeg"));
@@ -133,6 +134,7 @@ public class Game extends JPanel implements KeyListener, MouseListener, MouseMot
 				e.hit(projectile.getDamage());
 				if ( e.getHealth() <= 0 ) {
 					this.enemies.remove(l);
+					this.score += 10;
 				}
 				return true;
 			}
@@ -152,7 +154,9 @@ public class Game extends JPanel implements KeyListener, MouseListener, MouseMot
 		}
 
 	}
-
+	public String getScore() {
+		return String.valueOf(this.score);
+	}
 
 	public void paint(Graphics g){
 
