@@ -88,7 +88,7 @@ public class Tower extends TowerDefenseObject {
 		this.coolDown = coolDown;
 	}
 	public int getCoolDown() {
-		return coolDown;
+		return this.coolDown;
 	}
 
 	public void mouseClicked(MouseEvent e) {

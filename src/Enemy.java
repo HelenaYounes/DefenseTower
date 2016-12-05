@@ -19,7 +19,7 @@ public class Enemy extends MovingTowerDefenseObject {
   }
 
   public int getHealth(){
-    return health;
+    return this.health;
   }
 
   public void hit(int health){

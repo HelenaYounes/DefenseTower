@@ -27,6 +27,8 @@ public class Game extends JPanel implements KeyListener, MouseListener, MouseMot
 
 	public boolean isPaused;
 	public boolean isPlaying;
+	public int WIDTH;
+	public int HEIGHT;
 	//
 	public TowerDefenseObject towerSelected;
 	//
@@ -35,6 +37,8 @@ public class Game extends JPanel implements KeyListener, MouseListener, MouseMot
 
 	public Game(){
 		super();
+		this.WIDTH = 580;
+		this.HEIGHT = 500;
 //		addActionListener(this);
 		addKeyListener(this);
 		addMouseListener(this);
@@ -96,9 +100,40 @@ public class Game extends JPanel implements KeyListener, MouseListener, MouseMot
 				this.projectiles.add(p);
 			}
 		}
+			System.out.println("pSize " + this.projectiles.size());
 		 for(int k = 0; k < this.projectiles.size(); k++){
-			 this.projectiles.get(k).runLogic();
+			 Projectile p = this.projectiles.get(k);
+			 p.runLogic();
+			 if (this.checkProjectileCollision(p)) {
+				 this.projectiles.remove(k);
+			 }
 		 }
+	}
+
+	public boolean inBounds(TowerDefenseObject o) {
+		if (o.x < 0 || o.x > this.WIDTH || o.y < 0 || o.y > this.HEIGHT) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	public boolean checkProjectileCollision(Projectile projectile) {
+		if ( !this.inBounds(projectile) ) {
+			return true;
+		}
+		for (int l = 0; l < this.enemies.size(); l++) {
+			Enemy e = this.enemies.get(l);
+		 //  System.out.println("e: " + e.x + " " + e.y);
+			if (e.contain(projectile.x, projectile.y)) {
+				e.hit(projectile.getDamage());
+				if ( e.getHealth() <= 0 ) {
+					this.enemies.remove(l);
+				}
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public void drawComponents(Graphics g) {
@@ -117,7 +152,7 @@ public class Game extends JPanel implements KeyListener, MouseListener, MouseMot
 
 	public void paint(Graphics g){
 
-		g.drawImage(this.background, 0, 0, 580, 500, null );
+		g.drawImage(this.background, 0, 0, this.WIDTH, this.HEIGHT, null );
 
 		try{
 
@@ -151,9 +186,7 @@ public class Game extends JPanel implements KeyListener, MouseListener, MouseMot
 		int y = e.getY();
 		//check towers if cliked
 		for ( int i = 0; i < this.towers.size(); i++){
-			boolean contains = this.towers.get(i).contain(x, y);
-			//
-			if (contains == true){
+			if (this.towers.get(i).contain(x, y)){
 				this.isPlaying = false;
 				this.towerSelected = this.towers.get(i);
 			}
