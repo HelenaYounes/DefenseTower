@@ -24,57 +24,19 @@ public class TowerDefense extends JFrame {
 		mainPanel.setDividerLocation(100);
 		this.game = new Game();
 		this.menu = new Menu(this.game);
+		this.menu.setVisible(true);
 
 		this.add(mainPanel);
-		mainPanel.add(menu);
+		mainPanel.add(this.menu);
 		mainPanel.add(this.game);
 
 		this.setSize(800, 600);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);
 //		this.pack();
-
 	}
 
 	public static void main(String[] args) {
 		new TowerDefense();
-
 	}
-
 }
-
-// class MyCanvas extends JPanel {
-// private BufferedImage[][] imgs;
-// private int rows;
-// private int cols;
-// private final int tileSize = 64;
-//
-// public MyCanvas(int rows, int cols) {
-// super();
-// this.rows = rows;
-// this.cols = cols;
-// imgs = new BufferedImage[rows][cols];
-// }
-//
-// public void addPicture(int x, int y, String filename) {
-// if (x < 0 || x >= rows) {
-// System.err.println("There is no row " + x);
-// } else if (y < 0 || y >= cols) {
-// System.err.println("There is no col " + y);
-// } else {
-// try {
-// imgs[x][y] = ImageIO.read(new File(filename));
-// } catch (IOException e) {
-// System.err.println("Unable to read the file: " + filename);
-// }
-// }
-// }
-//
-// public void paint(Graphics g) {
-// for (int i = 0; i < rows; i++) {
-// for (int j = 0; j < cols; j++) {
-// g.drawImage(imgs[i][j], j * tileSize, i * tileSize, null);
-// }
-// }
-// }
-// }

@@ -20,9 +20,9 @@ public class Menu extends JPanel implements ActionListener{
 	public Menu(Game game){
 		super();
 		this.game = game;
-	    BoxLayout layout = new BoxLayout(this, BoxLayout.Y_AXIS);
-	    this.setVisible(true);
-	    this.setLayout(layout);
+		BoxLayout layout = new BoxLayout(this, BoxLayout.Y_AXIS);
+		this.setVisible(true);
+		this.setLayout(layout);
 //		this.setLayout(new BorderLayout());
 		this.start = new JButton("START");
 		this.start.addActionListener(this);
@@ -51,16 +51,17 @@ public class Menu extends JPanel implements ActionListener{
 			this.game.stop();
 
 		}
-		
+
 		else if(e.getSource() == this.start){
-		
+
 				this.game.start();
 		}
     }
-		
 
 
-	public void paint(Graphics g){
+
+	public void paint(Graphics g) {
+		super.paint(g);
 	}
 
 
