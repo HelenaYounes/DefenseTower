@@ -24,7 +24,7 @@ public class Tower extends TowerDefenseObject {
 		super(x, y, image, width, height);
 		this.radius = 5;
 		this.speed = 5;
-		this.coolDownCounter = 3;
+		this.coolDownCounter = 5;
 	}
 
 	@Override
@@ -32,10 +32,9 @@ public class Tower extends TowerDefenseObject {
 		super.drawTheImage(g);
 	}
 
-
 	public void runLogic() {
 		if(this.coolDownCounter > 0){
-			this.coolDownCounter--;
+			this.coolDownCounter -= this.speed;
 		}
 	}
 
@@ -46,7 +45,7 @@ public class Tower extends TowerDefenseObject {
 			this.coolDownCounter = 10;
 			int x = this.x;
 			int y = this.y;
-			double velocity = 10.0;
+			double velocity = 50.0;
 			int dmg = 10;
 			int size = 10;
 			BufferedImage projectileImage = this.projectileImage;
@@ -66,13 +65,11 @@ public class Tower extends TowerDefenseObject {
 	}
 
 	public boolean canFire(){
-		boolean can = (this.coolDownCounter < 1);
-		System.out.println("----" + can);
-		return can;
+		return (this.coolDownCounter < 1);
 	}
 
 	public int getRadius() {
-		return radius;
+		return this.radius;
 	}
 
 	public void setRadius(int radius) {
@@ -80,7 +77,7 @@ public class Tower extends TowerDefenseObject {
 	}
 
 	public int getSpeed() {
-		return speed;
+		return this.speed;
 	}
 
 	public void setSpeed(int speed) {

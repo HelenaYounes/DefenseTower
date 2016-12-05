@@ -19,9 +19,9 @@ public class Game extends JPanel implements KeyListener, MouseListener, MouseMot
 	protected BufferedImage background;
 	protected TowerDefenseObject tower;
 	protected TowerDefenseObject tower2;
-	protected Enemy enemy;
-	protected Enemy[] enemies;
-	protected Tower[] towers;
+	protected ArrayList<Enemy> enemies;
+	protected ArrayList<Enemy> enemiesInit;
+	protected ArrayList<Tower> towers;
 	protected ArrayList<Projectile> projectiles;
 
 
@@ -48,7 +48,7 @@ public class Game extends JPanel implements KeyListener, MouseListener, MouseMot
 			BufferedImage towerImage = ImageIO.read(new File("enemy.jpg"));
 			BufferedImage enemyImage = ImageIO.read(new File("ball.jpeg"));
 			BufferedImage projectileImage = ImageIO.read(new File("projectile.jpg"));
-			this.initializeEnemies(5, enemyImage);
+			this.initializeEnemies(10, enemyImage);
 			this.initializeTowers(3, 10, towerImage, projectileImage);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -58,29 +58,41 @@ public class Game extends JPanel implements KeyListener, MouseListener, MouseMot
 
 
 	public void initializeEnemies(int num, BufferedImage img) {
-		this.enemies = new Enemy[num];
+		this.enemies = new ArrayList<Enemy>();
+		this.enemiesInit = new ArrayList<Enemy>();
 		for (int i = 0; i < num; i++) {
-			this.enemies[i] = new Enemy(500 + 20*i, 300, img, 50.0, 0.0, 50);
+			this.enemiesInit.add(new Enemy(0, 300, img, 50.0, 0.0, 50));
 		}
 	}
 
 	public void initializeTowers(int num, int fleche, BufferedImage imgTower, BufferedImage imgProjectile) {
-		this.towers = new Tower[num];
+		this.towers = new ArrayList<Tower>();
 		this.projectiles = new ArrayList<Projectile>();
 
 		for (int i = 0; i < num; i++) {
-			this.towers[i] = new Tower(100, 150 * i ,imgTower, 50, 40);
+			this.towers.add(new Tower(100, 150 * i ,imgTower, 50, 40));
+		}
+	}
+	public void addWaitingEnemies() {
+		if (enemiesInit.size() > 0) {
+			Enemy enemy = enemiesInit.get(0);
+			this.enemies.add(enemy);
+			enemiesInit.remove(0);
 		}
 	}
 
 	public void runLogic() {
-		for (int i = 0; i < this.enemies.length; i++) {
-			this.enemies[i].runLogic();
+		this.addWaitingEnemies();
+
+		for (int i = 0; i < this.enemies.size(); i++) {
+			this.enemies.get(i).runLogic();
 		}
-		for (int j = 0; j < this.towers.length; j++) {
-			this.towers[j].runLogic();
-			if (this.towers[j].canFire()) {
-				Projectile p = this.towers[j].fireAtEnemy(this.enemies[0]);
+
+		for (int j = 0; j < this.towers.size(); j++) {
+			Tower tower = this.towers.get(j);
+			tower.runLogic();
+			if (tower.canFire()) {
+				Projectile p = tower.fireAtEnemy(this.enemies.get(0));
 				this.projectiles.add(p);
 			}
 		}
@@ -90,11 +102,11 @@ public class Game extends JPanel implements KeyListener, MouseListener, MouseMot
 	}
 
 	public void drawComponents(Graphics g) {
-		for (int i = 0; i < this.enemies.length; i++) {
-			this.enemies[i].drawTheImage(g);
+		for (int i = 0; i < this.enemies.size(); i++) {
+			this.enemies.get(i).drawTheImage(g);
 		}
-		for (int j = 0; j < this.towers.length; j++) {
-			this.towers[j].drawTheImage(g);
+		for (int j = 0; j < this.towers.size(); j++) {
+			this.towers.get(j).drawTheImage(g);
 		}
 		for(int k = 0; k < this.projectiles.size(); k++){
 			this.projectiles.get(k).drawTheImage(g);
@@ -138,12 +150,12 @@ public class Game extends JPanel implements KeyListener, MouseListener, MouseMot
 		int x = e.getX();
 		int y = e.getY();
 		//check towers if cliked
-		for ( int i = 0; i < this.towers.length; i++){
-			boolean contains = this.towers[i].contain(x, y);
+		for ( int i = 0; i < this.towers.size(); i++){
+			boolean contains = this.towers.get(i).contain(x, y);
 			//
 			if (contains == true){
 				this.isPlaying = false;
-				this.towerSelected = this.towers[i];
+				this.towerSelected = this.towers.get(i);
 			}
 		}
 

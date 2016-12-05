@@ -34,7 +34,6 @@ public class Projectile extends MovingTowerDefenseObject {
       double angle = Math.atan2(dx, dy);
       this.velocityX = Math.cos(angle) * this.velocity;
       this.velocityY = Math.sin(angle) * this.velocity;
-      System.out.println("++++++" + velocityX);
       this.x += this.velocityX;
       this.y += this.velocityY;
     }
