@@ -228,8 +228,11 @@ public class Game extends JPanel implements KeyListener, MouseListener, MouseMot
 	    }
 	}
 
-	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
+	public void start() {
+		this.isPlaying = true;
+	}
 
+	public void stop() {
+		this.isPlaying = false;
 	}
 }

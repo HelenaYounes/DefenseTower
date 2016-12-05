@@ -5,12 +5,17 @@ import javax.swing.JLabel;
 
 import java.awt.Graphics;
 import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 
-public class Menu extends JPanel {
+public class Menu extends JPanel implements ActionListener{
 
 	public int score;
 	public JLabel scoreBoard;
+	public JButton start;
+	public JButton pause;
+	public JButton reset;
 	public Game game;
 
 	public Menu(Game game){
@@ -20,12 +25,15 @@ public class Menu extends JPanel {
 	    this.setVisible(true);
 	    this.setLayout(layout);
 //		this.setLayout(new BorderLayout());
-		JButton start = new JButton("START");
-		JButton pause = new JButton("PAUSE");
-		JButton reset = new JButton("RESET");
-		reset.setVisible(true);
-		start.setVisible(true);
-		pause.setVisible(true);
+		this.start = new JButton("START");
+		this.start.addActionListener(this);
+		this.pause = new JButton("PAUSE");
+		this.pause.addActionListener(this);
+		this.reset = new JButton("RESET");
+//		reset.addActionListener(this);
+		this.reset.setVisible(true);
+		this.start.setVisible(true);
+		this.pause.setVisible(true);
 //		this.scoreBoard = new JLabel("HI");
 //		this.scoreBoard.setVisible(true);
 
@@ -38,10 +46,22 @@ public class Menu extends JPanel {
 		repaint();
 	}
 
-	// public ... {
-	// 	this.game.stop();
-	// }
+	public void actionPerformed(ActionEvent e){
+		if	(e.getSource() == this.pause){
+			this.game.stop();
+
+		}
+		
+		else if(e.getSource() == this.start){
+		
+				this.game.start();
+		}
+    }
+		
+
 
 	public void paint(Graphics g){
 	}
+
+
 }
