@@ -22,8 +22,8 @@ public class Enemy extends MovingTowerDefenseObject {
     return this.health;
   }
 
-  public void hit(int health){
-    this.health -= health;
+  public void hit(int damage){
+    this.health -= damage;
   }
 
 }

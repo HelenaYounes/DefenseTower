@@ -32,9 +32,6 @@ public class MovingTowerDefenseObject extends TowerDefenseObject {
 	public void runLogic() {
 		super.runLogic();
 		this.x = (int) (this.x - this.velocityX);
-		if(this.x < 0 || this.x > 600){
-		  this.velocityX *= -1;
-		}
 		this.y = (int) (this.y - this.velocityY);
 	}
 

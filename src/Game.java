@@ -28,11 +28,10 @@ public class Game extends JPanel implements KeyListener, MouseListener, MouseMot
 	public int money;
 	public int lives;
 
-
-
 	public boolean isPlaying;
 	public int WIDTH;
 	public int HEIGHT;
+	public int STARTX;
 
 	//
 	public TowerDefenseObject towerSelected;
@@ -49,6 +48,7 @@ public class Game extends JPanel implements KeyListener, MouseListener, MouseMot
 		this.isPlaying = false;
 		this.WIDTH = 580;
 		this.HEIGHT = 500;
+		this.STARTX = 30;
 //		addActionListener(this);
 		addKeyListener(this);
 		addMouseListener(this);
@@ -61,7 +61,8 @@ public class Game extends JPanel implements KeyListener, MouseListener, MouseMot
 			BufferedImage enemyImage = ImageIO.read(new File("ball.jpeg"));
 			BufferedImage projectileImage = ImageIO.read(new File("projectile.jpg"));
 			this.initializeEnemies(6, enemyImage);
-			this.initializeTowers(3, towerImage, projectileImage);
+			this.towers = new ArrayList<Tower>();
+			this.projectiles = new ArrayList<Projectile>();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -73,23 +74,15 @@ public class Game extends JPanel implements KeyListener, MouseListener, MouseMot
 		this.enemies = new ArrayList<Enemy>();
 		this.enemiesInit = new ArrayList<Enemy>();
 		for (int i = 0; i < num; i++) {
-			this.enemiesInit.add(new Enemy(0, 300, img, 5.0, 0.0, 50));
+			this.enemiesInit.add(new Enemy(STARTX, 300, img, -5.0, 0.0, 50));
 		}
 	}
 
-	public void initializeTowers(int num, BufferedImage imgTower, BufferedImage imgProjectile) {
-		this.towers = new ArrayList<Tower>();
-		this.projectiles = new ArrayList<Projectile>();
-
-		for (int i = 0; i < num; i++) {
-			this.towers.add(new Tower(100, 150 * i ,imgTower, 50, 40));
-		}
-	}
 	public void addWaitingEnemies() {
 		if (this.enemiesInit.size() < 1) return;
 		if (this.enemies.size() > 0) {
 			Enemy lastEnemy = this.enemies.get(this.enemies.size() - 1);
-			if (lastEnemy.x < lastEnemy.width) {
+			if (lastEnemy.x - this.STARTX < lastEnemy.width) {
 				return;
 			}
 		}
@@ -102,7 +95,13 @@ public class Game extends JPanel implements KeyListener, MouseListener, MouseMot
 		this.addWaitingEnemies();
 
 		for (int i = 0; i < this.enemies.size(); i++) {
-			this.enemies.get(i).runLogic();
+			Enemy enemy = this.enemies.get(i);
+			enemy.runLogic();
+			if (!this.inBounds(enemy)) {
+				this.enemies.remove(i);
+				this.lives--;
+				i--;
+			}
 		}
 
 		for (int j = 0; j < this.towers.size(); j++) {
@@ -119,6 +118,7 @@ public class Game extends JPanel implements KeyListener, MouseListener, MouseMot
 			 p.runLogic();
 			 if (this.checkProjectileCollision(p)) {
 				 this.projectiles.remove(k);
+				 k--;
 			 }
 		 }
 	}

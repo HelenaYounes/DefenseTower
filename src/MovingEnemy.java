@@ -2,25 +2,25 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 public class MovingEnemy extends TowerDefenseObject {
-  public double velocityXE;
-  public double velocityYE;
+  public double velocityX;
+  public double velocityY;
 
   public MovingEnemy(){
     super();
-    this.velocityXE = -1;
-    this.velocityYE = 0;
+    this.velocityX = 1;
+    this.velocityY = 0;
   }
 
-    public MovingEnemy(int x, int y, BufferedImage image, double velocityXE, double velocityYE){
+    public MovingEnemy(int x, int y, BufferedImage image, double velocityX, double velocityY){
       super(x, y, image);
-      this.velocityXE = velocityXE;
-      this.velocityYE = velocityYE;
+      this.velocityX = velocityX;
+      this.velocityY = velocityY;
   }
 
-  public MovingEnemy(int x, int y, BufferedImage image, int width, int height, double velocityXE, double velocityYE){
+  public MovingEnemy(int x, int y, BufferedImage image, int width, int height, double velocityX, double velocityY){
     super( x, y, image, width, height);
-    this.velocityXE = velocityXE;
-    this.velocityYE = velocityYE;
+    this.velocityX = velocityX;
+    this.velocityY = velocityY;
   }
 
   @Override
@@ -28,24 +28,24 @@ public class MovingEnemy extends TowerDefenseObject {
     super.drawTheImage(g);
   }
   public void runLogic(){
-    this.x += velocityXE;
-    this.y += velocityYE;
+    this.x += velocityX;
+    this.y += velocityY;
   }
 
 
-  public void setVelocityXE (double velocityXE){
-    this.velocityXE = velocityXE;
+  public void setVelocityXE (double velocityX){
+    this.velocityX = velocityX;
   }
 
-  public void setVelocityYE(double velocityYE){
-    this.velocityYE = velocityYE;
+  public void setVelocityYE(double velocityY){
+    this.velocityY = velocityY;
   }
 
   public double getVelocityXE(){
-    return velocityXE;
+    return velocityX;
   }
 
   public double getVelocityYE(){
-    return velocityYE;
+    return velocityY;
   }
 }
