@@ -24,14 +24,17 @@ public class Projectile extends MovingTowerDefenseObject {
 
     public Projectile(Projectile p){
       super(p.x, p.y, p.image, p.width, p.height, p.velocityX, p.velocityY );
-      this.velocity = p.velocity; 
+      this.velocity = p.velocity;
       this.damage = p.damage;
     }
 
     public void fireAtEnemy(Enemy e){
-      double angle = Math.atan2(x, y);
+      double dx = e.x - this.x;
+      double dy = e.y - this.y;
+      double angle = Math.atan2(dx, dy);
       this.velocityX = Math.cos(angle) * this.velocity;
       this.velocityY = Math.sin(angle) * this.velocity;
+      System.out.println("++++++" + velocityX);
       this.x += this.velocityX;
       this.y += this.velocityY;
     }

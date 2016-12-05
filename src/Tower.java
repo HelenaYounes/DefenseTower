@@ -42,16 +42,23 @@ public class Tower extends TowerDefenseObject {
 	public Projectile fireAtEnemy(Enemy e){
 		if (this.canFire) {
 			this.projectile = null;
-		}
-		else{
+		} else {
 			this.coolDownCounter = 10;
 			int x = this.x;
 			int y = this.y;
+			double velocity = 10.0;
+			int dmg = 10;
+			int size = 10;
 			BufferedImage projectileImage = this.projectileImage;
-			double vy = ;
-			double vx; = 
-			int damage = ;
-			this.projectile = new Projectile (this.tower.x, this.tower.Y, this.projectileImage, this.projectile.velocityX, , dmg );
+			this.projectile = new Projectile(
+				x,
+				y,
+				this.projectileImage,
+				size,
+				size,
+				velocity,
+				dmg
+			);
 			this.projectile.fireAtEnemy(e);
 		}
 
@@ -59,12 +66,10 @@ public class Tower extends TowerDefenseObject {
 	}
 
 	public boolean canFire(){
-		this.canFire = false;
-		if(this.coolDownCounter<1){
-			this.canFire = true;
-		}
-		return canFire;
-		}
+		boolean can = (this.coolDownCounter < 1);
+		System.out.println("----" + can);
+		return can;
+	}
 
 	public int getRadius() {
 		return radius;

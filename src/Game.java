@@ -1,6 +1,7 @@
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
+import java.util.ArrayList;
 import java.awt.event.*;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
@@ -21,7 +22,7 @@ public class Game extends JPanel implements KeyListener, MouseListener, MouseMot
 	protected Enemy enemy;
 	protected Enemy[] enemies;
 	protected Tower[] towers;
-	protected Projectile[] projectiles;
+	protected ArrayList<Projectile> projectiles;
 
 
 	public boolean isPaused;
@@ -41,7 +42,7 @@ public class Game extends JPanel implements KeyListener, MouseListener, MouseMot
 		setFocusable(true);
 		setFocusTraversalKeysEnabled(false);
 		try {
-		
+
 			this.isPlaying = true;
 			this.background = ImageIO.read(new File("background.png"));
 			BufferedImage towerImage = ImageIO.read(new File("enemy.jpg"));
@@ -54,7 +55,7 @@ public class Game extends JPanel implements KeyListener, MouseListener, MouseMot
 			e.printStackTrace();
 		}
 	}
-	
+
 
 	public void initializeEnemies(int num, BufferedImage img) {
 		this.enemies = new Enemy[num];
@@ -65,13 +66,10 @@ public class Game extends JPanel implements KeyListener, MouseListener, MouseMot
 
 	public void initializeTowers(int num, int fleche, BufferedImage imgTower, BufferedImage imgProjectile) {
 		this.towers = new Tower[num];
-		this.projectiles = new Projectile[fleche];
+		this.projectiles = new ArrayList<Projectile>();
+
 		for (int i = 0; i < num; i++) {
 			this.towers[i] = new Tower(100, 150 * i ,imgTower, 50, 40);
-			Tower tower = this.towers[i];
-			for(int j = 0; j < projectiles.length; j++){
-				this.projectiles[j] = new Projectile(tower.x,tower.y, imgProjectile, 20.0, 40.0, 10);
-			}
 		}
 	}
 
@@ -81,10 +79,13 @@ public class Game extends JPanel implements KeyListener, MouseListener, MouseMot
 		}
 		for (int j = 0; j < this.towers.length; j++) {
 			this.towers[j].runLogic();
-			this.towers[j].fireAtEnemy(this.enemies[j]);
+			if (this.towers[j].canFire()) {
+				Projectile p = this.towers[j].fireAtEnemy(this.enemies[0]);
+				this.projectiles.add(p);
+			}
 		}
-		 for(int k = 0; k < this.projectiles.length; k++){
-			 this.projectiles[k].runLogic();
+		 for(int k = 0; k < this.projectiles.size(); k++){
+			 this.projectiles.get(k).runLogic();
 		 }
 	}
 
@@ -95,8 +96,8 @@ public class Game extends JPanel implements KeyListener, MouseListener, MouseMot
 		for (int j = 0; j < this.towers.length; j++) {
 			this.towers[j].drawTheImage(g);
 		}
-		for(int k = 0; k < this.projectiles.length; k++){
-			this.projectiles[k].drawTheImage(g);
+		for(int k = 0; k < this.projectiles.size(); k++){
+			this.projectiles.get(k).drawTheImage(g);
 		}
 
 	}
@@ -105,7 +106,7 @@ public class Game extends JPanel implements KeyListener, MouseListener, MouseMot
 	public void paint(Graphics g){
 
 		g.drawImage(this.background, 0, 0, 580, 500, null );
-	
+
 		try{
 
 			// GAME LOGIC
@@ -143,7 +144,6 @@ public class Game extends JPanel implements KeyListener, MouseListener, MouseMot
 			if (contains == true){
 				this.isPlaying = false;
 				this.towerSelected = this.towers[i];
-				System.out.println("Hello");
 			}
 		}
 
@@ -181,6 +181,6 @@ public class Game extends JPanel implements KeyListener, MouseListener, MouseMot
 
 	public void actionPerformed(ActionEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 }
