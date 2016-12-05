@@ -1,11 +1,11 @@
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
-import java.awt.*;
 import java.awt.event.*;
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -13,11 +13,12 @@ import java.io.File;
 import java.io.IOException;
 
 
-public class Game extends JPanel implements KeyListener, MouseListener{
+public class Game extends JPanel implements KeyListener, MouseListener, ActionListener{
 
 	protected BufferedImage background;
 	protected TowerDefenseObject tower;
 	protected TowerDefenseObject tower2;
+	protected Enemy[] enemies;
 	protected Enemy enemy;
 	public boolean isPaused;
 	public boolean isPlaying;
@@ -26,12 +27,13 @@ public class Game extends JPanel implements KeyListener, MouseListener{
 
 	public Game(){
 		super();
+//		addActionListener(this);
 		addKeyListener(this);
 		addMouseListener(this);
 		setFocusable(true);
 		setFocusTraversalKeysEnabled(false);
-
 		try {
+		
 			this.isPlaying = true;
 			this.background = ImageIO.read(new File("background.png"));
 			BufferedImage towerImage = ImageIO.read(new File("enemy.jpg"));
@@ -44,11 +46,12 @@ public class Game extends JPanel implements KeyListener, MouseListener{
 			e.printStackTrace();
 		}
 	}
+	
 
 	public void paint(Graphics g){
 
 		g.drawImage(this.background, 0, 0, 580, 500, null );
-
+	
 		try{
 			if (this.isPlaying) {
 				this.enemy.runLogic();
@@ -90,5 +93,10 @@ public class Game extends JPanel implements KeyListener, MouseListener{
 	    if (key == KeyEvent.VK_SPACE){
 	      this.isPlaying = !this.isPlaying;
 	    }
+	}
+
+	public void actionPerformed(ActionEvent arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 }
